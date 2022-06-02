@@ -78,12 +78,6 @@ export default {
       getBrewery: async (id) => {
         try {
           const response = await fetch(config.api.url + "api/breweries/ "+ id.toString(), {
-            method: 'GET',
-            mode: 'no-cors',
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Content-Type': 'text/plain'
-            },
           });
           const data = await response.json();
           return data

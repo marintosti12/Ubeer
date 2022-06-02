@@ -1,11 +1,16 @@
 <template>
   <nav-bar></nav-bar>
-  <h1 class="mt-4 p-4 text-2xl">Liste de bières</h1>
+  <h1 class=" p-4 text-2xl">Liste des brasseries</h1>
 
-    <div class="grid grid-cols-4 mt-2 gap-4 p-4">
+    <div class="grid grid-cols-4 gap-4 p-2">
       <brewery-element v-for="item in breweries" :key="item.index" :data="item">
 
       </brewery-element>
+    </div>
+
+    <div class="flex justify-center	justify-items-center items-center w-full">
+      <div class="p-3 cursor-pointer bg-gray-200 m-2" v-on:click="paginateDown">Précédent</div>
+      <div class="p-3 cursor-pointer bg-gray-200 m-2" v-on:click="paginateUp">Suivant</div>
     </div>
 </template>
 
@@ -18,7 +23,9 @@
     name: "HomeView",
     data() {
       return {
-        breweries: []
+        breweries: [],
+        limit: 12,
+        offset: 0
       }
     },
     components: {
@@ -27,18 +34,40 @@
 
     },
     mounted() {
-        this.getAllBreweries().then(response => {
-          this.breweries = response
+        this.getAllBreweries(this.limit, this.offset).then(response => {
+          this.breweries = response.rows
         })
+    },
+    methods: {
+      paginateUp: function () {
+        this.offset += 12;
+        this.getAllBreweries(this.limit, this.offset).then(response => {
+          this.breweries = response.rows
+
+          if (this.breweries.length == 0) {
+            this.offset -= 12;
+            this.getAllBreweries(this.limit, this.offset).then(response => {
+              this.breweries = response.rows
+            })
+          }
+        })
+      },
+      paginateDown: function () {
+        this.offset -= 12;
+        if (this.offset <= 0)
+          this.offset = 0
+
+        this.getAllBreweries(this.limit, this.offset).then(response => {
+          this.breweries = response.rows
+        })
+      }
     },
     setup() {
       return {
-        getAllBreweries: async () => {
-          console.log(config.api.url + 'api/breweries');
-          const response = await fetch(config.api.url + 'api/breweries', {
+        getAllBreweries: async (limit, offset) => {
+          const response = await fetch(config.api.url + 'api/breweries/'+limit+'/'+offset, {
 
           });
-          console.log(response)
           const data = await response.json();
           return data
         }
