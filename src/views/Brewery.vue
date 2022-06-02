@@ -35,6 +35,7 @@
 <script>
 import NavBar from "@/components/Navbar";
 import BeerElement from "@/components/Beer";
+import config from  "../config/config"
 
 export default {
   name: "BreweryView",
@@ -73,7 +74,7 @@ export default {
   setup() {
     return {
       getBrewery: async (id) => {
-        const response = await fetch('http://localhost:3000/api/breweries/'+ id.toString(), {
+        const response = await fetch(config.api.url + "api/breweries/ "+ id.toString(), {
 
         });
         const data = await response.json();

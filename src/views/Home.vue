@@ -12,6 +12,8 @@
 <script>
   import BreweryElement from "@/components/Brewery";
   import NavBar from "@/components/Navbar";
+  import config from  "../config/config";
+
   export default {
     name: "HomeView",
     data() {
@@ -32,9 +34,14 @@
     setup() {
       return {
         getAllBreweries: async () => {
-          const response = await fetch('http://localhost:3000/api/breweries', {
-  
+          console.log(config.api.url + 'api/breweries');
+          const response = await fetch(config.api.url + 'api/breweries', {
+            method: 'GET',
+            headers: {
+              accept: 'application/json',
+            },
           });
+          console.log(response.status)
           const data = await response.json();
           return data
         }
