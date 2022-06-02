@@ -36,10 +36,7 @@
         getAllBreweries: async () => {
           console.log(config.api.url + 'api/breweries');
           const response = await fetch(config.api.url + 'api/breweries', {
-            method: 'GET',
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-            },
+
           });
           console.log(response)
           const data = await response.json();
