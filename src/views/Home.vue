@@ -38,10 +38,10 @@
           const response = await fetch(config.api.url + 'api/breweries', {
             method: 'GET',
             headers: {
-              accept: 'application/json',
+              'Access-Control-Allow-Origin': '*',
             },
           });
-          console.log(response.status)
+          console.log(response)
           const data = await response.json();
           return data
         }

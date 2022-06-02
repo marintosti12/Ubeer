@@ -67,6 +67,8 @@ export default {
     const id = this.$route.params.id;
 
     this.getBrewery(id).then(response => {
+      console.log(response)
+
       this.brewery = response
       this.loading = false
     })
@@ -74,11 +76,21 @@ export default {
   setup() {
     return {
       getBrewery: async (id) => {
-        const response = await fetch(config.api.url + "api/breweries/ "+ id.toString(), {
+        try {
+          const response = await fetch(config.api.url + "api/breweries/ "+ id.toString(), {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Content-Type': 'text/plain'
+            },
+          });
+          const data = await response.json();
+          return data
 
-        });
-        const data = await response.json();
-        return data
+        } catch (e) {
+          console.log(e);
+        }
       }
     };
   }
