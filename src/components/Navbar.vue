@@ -13,7 +13,7 @@
         <div class="text-sm lg:flex-grow">
      
         </div>
-        <div>
+        <div class="flex items-center">
             <a  v-if="isAuthenticated && !isLoading" @click="logout" class="inline-block text-sm px-4 py-2 bg-red-600 mr-2  rounded text-white mt-4 lg:mt-0">
               Deconnexion
             </a>
@@ -22,6 +22,11 @@
             </a>
             <a v-if="!isAuthenticated && !isLoading" @click="login" class="inline-block text-sm px-4 py-2 bg-green-600  rounded text-white mt-4 lg:mt-0">
                   Inscription
+            </a>
+            <a href="/shopping-cart" class="inline-block text-sm  ml-2  rounded text-white mt-8 lg:mt-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="white">
+                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd" />
+              </svg>
             </a>
         </div>
     </div>
