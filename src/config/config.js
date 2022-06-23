@@ -1,6 +1,6 @@
 const config = {
     api: {
-        url: "http://localhost:5000/",
+        url: "https://ubeer-app.herokuapp.com/",
     },
 };
 module.exports = config;
