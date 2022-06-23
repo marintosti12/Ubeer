@@ -36,6 +36,7 @@
 import NavBar from "@/components/Navbar";
 import BeerElement from "@/components/Beer";
 import config from  "../config/config"
+import { useAuth0 } from '@auth0/auth0-vue';
 
 export default {
   name: "BreweryView",
@@ -74,10 +75,15 @@ export default {
     })
   },
   setup() {
+    const { getAccessTokenSilently } = useAuth0();
     return {
       getBrewery: async (id) => {
         try {
+          const token = await getAccessTokenSilently();
           const response = await fetch(config.api.url + "api/breweries/ "+ id.toString(), {
+            headers: {
+              Authorization: 'Bearer ' + token
+            }
           });
           const data = await response.json();
           return data
